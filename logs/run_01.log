@@ -1,0 +1,2 @@
+[sim] tb_mul16_smoke seed=11 commit=a1f3c09 ngay=2026-11-24
+FAIL: het thoi gian sau 0 phep nhan (req_ready hoac resp_valid khong len 1?)
