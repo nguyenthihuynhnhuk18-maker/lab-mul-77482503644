@@ -12,3 +12,4 @@ Repo cá nhân dùng cho Lab 2 đến Lab 8. Đặc tả: `doc/dac-ta.md`.
 | `sim/` | file sinh ra khi mô phỏng (không commit) |
 
 Cách chạy: `make` để xem danh sách lệnh.
+// ghi chu
