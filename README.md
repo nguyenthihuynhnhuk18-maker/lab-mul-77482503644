@@ -1,4 +1,4 @@
-# Bộ nhân mul16 – <Họ tên>, <MSSV>
+# Bộ nhân mul16 – NguyenThiHuynhNhu,77482503644
 
 Repo cá nhân dùng cho Lab 2 đến Lab 8. Đặc tả: `doc/dac-ta.md`.
 
