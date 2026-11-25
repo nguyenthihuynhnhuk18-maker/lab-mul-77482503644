@@ -31,3 +31,47 @@
 
 # TODO 4: cong don so phep sai (chi cong khi sai la so: string is integer -strict $sai)
 #         va in "Tong so phep nhan sai: <tong>"
+proc doc_log {file} {
+    set commit "?"
+    set ket_qua "?"
+    set sai "-"
+
+    set fp [open $file r]
+    while {[gets $fp line] >= 0} {
+        if {[regexp {commit=([0-9a-f]+)} $line -> c]} {
+            set commit $c
+        }
+        if {[regexp {^PASS:} $line]} {
+            set ket_qua "PASS"
+            set sai 0
+        }
+        if {[regexp {^FAIL: ([0-9]+)/[0-9]+ phep nhan sai} $line -> n]} {
+            set ket_qua "FAIL"
+            set sai $n
+        }
+        if {[string match "FAIL: het thoi gian*" $line]} {
+            set ket_qua "TREO"
+            set sai "-"
+        }
+    }
+    close $fp
+    return [list $commit $ket_qua $sai]
+}
+set files [lsort [glob -nocomplain logs/*.log]]
+if {[llength $files] == 0} {
+    puts "Khong co file log trong logs/"
+    exit 1
+}
+puts [format "%-12s %-9s %-8s %s" "File" "Commit" "Ket qua" "Sai"]
+foreach f $files {
+    lassign [doc_log $f] commit ket_qua sai
+    puts [format "%-12s %-9s %-8s %s" [file tail $f] $commit $ket_qua $sai]
+}
+set tong 0
+foreach f $files {
+    lassign [doc_log $f] commit ket_qua sai
+    if {[string is integer -strict $sai]} {
+        incr tong $sai
+    }
+}
+puts "Tong so phep nhan sai: $tong"
